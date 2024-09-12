@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- http://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=0515fa3a97c1dd00f5313a2d038a0a24 -->
+     <h1 class="mainhead">WEATHER APP</h1>
+     <P>SERCH FOR YOUR CITY !</P>
+     
+     <input type="text" id="data" placeholder="Saerch Your Cuty!">
+     <button type="button" id="save">SEARCH</button>
+     <div class="main">
+
+     <div class="info">
+        <h1>CITY</h1>
+        <p id="a"></p>
+     </div>
+     <div class="info">
+        <h1>SUNRISE</h1>
+        <p id="b"></p>
+     </div>
+     <div class="info">
+        <h1>SUNSET</h1>
+        <p id="c"></p>
+     </div>
+     <div class="info">
+        <h1>TEMPERATURE</h1>
+        <p id="d"></p>
+     </div>
+    </div>
+     
+</body>
+<script>
+document.getElementById("save").addEventListener("click", function(){
+    var city= document.getElementById("data").value;
+    fetch(" http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=0515fa3a97c1dd00f5313a2d038a0a24 ")
+    .then(response=>response.json())
+    .then(data=>{
+        document.getElementById("a").innerHTML = data.sys.country;
+        document.getElementById("b").innerHTML = (new Date((data.sys.sunrise)*1000)).toLocaleString();
+        document.getElementById("c").innerHTML = (new Date((data.sys.sunset)*1000)).toLocaleString();
+        document.getElementById("d").innerHTML=((data.main.temp) -273). toFixed(0)+"<sup>0</sup>C";
+        })
+})  
+
+</script>
+</html>
